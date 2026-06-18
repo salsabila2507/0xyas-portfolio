@@ -639,7 +639,7 @@ Premium Services:
   <p style="color:var(--cyan)">OPEN TO WORK</p>
 </footer>
 
-<a id="_dl" href="#" download>x</a>
+<a id="_dl" href="#" download aria-hidden="true" tabindex="-1" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;"></a>
 
 <script>
 // EMAIL
@@ -649,10 +649,6 @@ Premium Services:
   var tx = document.getElementById('email-txt');
   tx.textContent = e;
   el.href = 'mailto:' + e;
-  el.addEventListener('click', function(ev){
-    ev.preventDefault();
-    window.location.href = 'mailto:' + e;
-  });
 })();
 
 // HAMBURGER
@@ -665,14 +661,6 @@ document.querySelectorAll('#nav-menu a').forEach(function(a){
     document.getElementById('hamburger').classList.remove('active');
     document.getElementById('nav-menu').classList.remove('open');
   });
-});
-
-// SCROLL PROGRESS
-window.addEventListener('scroll', function(){
-  var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-  var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  var progress = (scrollTop / scrollHeight) * 100;
-  document.getElementById('progress').style.width = progress + '%';
 });
 
 // MATRIX RAIN
@@ -912,11 +900,15 @@ function downloadCV(){
   setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
 }
 
-// NAV ACTIVE
+// SCROLL HANDLER
 (function(){
   var secs  = document.querySelectorAll('section[id]');
   var links = document.querySelectorAll('nav a');
+  var pbar  = document.getElementById('progress');
   window.addEventListener('scroll', function(){
+    var st = document.documentElement.scrollTop || document.body.scrollTop;
+    var sh = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    pbar.style.width = Math.min(100, (st / sh) * 100) + '%';
     var cur = '';
     secs.forEach(function(s){
       if (window.scrollY >= s.offsetTop - 220) cur = s.id;
@@ -946,8 +938,6 @@ function showModal(e) {
   e.preventDefault();
   var btn = e.currentTarget;
   var serviceType = btn ? btn.dataset.service : '';
-  var cardSelect = btn ? btn.closest('.exp-card')?.querySelector('.xp-card-select') : null;
-  var cardDuration = cardSelect ? cardSelect.value : '3 months &mdash; $6';
   if(!modal) {
     modal = document.createElement('div');
     modal.className = 'modal-overlay';
