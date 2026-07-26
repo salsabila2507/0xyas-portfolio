@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>0XYAS / Imam Islamuddin</title>
-<meta name="description" content="Imam Islamuddin (0XYAS), AI-powered Web3 builder and founder of Bountix. Bots, automation, community growth and content across X, Telegram and Discord.">
+<title>0XYAS</title>
+<meta name="description" content="0XYAS, AI-powered Web3 builder and founder of Bountix. Bots, automation, community growth and content across X, Telegram and Discord.">
 <meta name="theme-color" content="#F2F0E4">
-<meta property="og:title" content="0XYAS / Imam Islamuddin">
+<meta property="og:title" content="0XYAS">
 <meta property="og:description" content="Founder of Bountix. Building bots, automation and Web3 growth systems.">
 <meta property="og:image" content="avatar.jpg">
 <link rel="icon" href="avatar.jpg">
@@ -308,6 +308,46 @@ a.panel:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
 .tagrow{display:flex;gap:var(--s1);flex-wrap:wrap}
 .tag{padding:3px 9px;border:1.5px solid var(--ink-3);font-size:var(--fs-xs);font-weight:500;color:var(--ink-2)}
 
+
+/* ── armour plate ──────────────────────────────────────────────────────
+   Panels are built as pieces of the portrait's armour: a steel face with
+   the karakusa swirl engraved into it, a raised lip along the top edge
+   the way lamellar plates overlap, rivets punched through that lip, and
+   chamfered corners. Steel is kept light so ink copy stays legible.
+   ──────────────────────────────────────────────────────────────────── */
+.panel{
+  position:relative;
+  padding-top:calc(var(--s5) + 26px);
+  border-radius:16px 16px 7px 7px / 13px 13px 7px 7px;
+  background-color:#E6E9E8;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='76' height='76' viewBox='0 0 76 76'%3E%3Cg fill='none' stroke='%2314140F' stroke-width='1.7' stroke-linecap='round' opacity='0.1'%3E%3Cpath d='M38 9c15 0 24 10 24 23 0 10-8 17-17 17-8 0-13-6-13-12 0-6 4-10 10-10 4 0 6 3 6 6'/%3E%3Cpath d='M13 32c-7 4-10 12-8 20'/%3E%3Cpath d='M0 66c11 0 17-6 21-13 4-6 9-9 15-7'/%3E%3Cpath d='M53 64c6-3 13-2 17 4'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(178deg,#EFF1F0 0%,#E4E8E7 52%,#D5DBDA 100%);
+  background-size:76px 76px,100% 100%;
+  box-shadow:var(--drop),inset 0 2px 0 rgba(255,255,255,.75);
+}
+/* the overlapping lip along the top of the plate, with its rivet row */
+.panel::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:26px;
+  border-bottom:3px solid var(--ink);
+  border-radius:13px 13px 0 0 / 11px 11px 0 0;
+  background-color:#D2D8D8;
+  background-image:radial-gradient(circle at 13px 13px,var(--ink) 3.2px,transparent 3.6px);
+  background-size:34px 26px;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.7);
+}
+/* lacing holes along the bottom edge, as on kusazuri skirt plates */
+.panel::after{
+  content:'';position:absolute;bottom:7px;left:14px;right:14px;height:5px;
+  background-image:radial-gradient(circle at 4px 2.5px,var(--ink) 2px,transparent 2.4px);
+  background-size:26px 5px;opacity:.45;
+}
+a.panel:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink),inset 0 2px 0 rgba(255,255,255,.75)}
+/* icon block reads as a mon crest riveted onto the plate */
+.panel-icon{box-shadow:2px 2px 0 rgba(20,20,15,.35)}
+.panel-desc,.perks li{color:var(--ink-2)}
+.tag{background:rgba(255,255,255,.5)}
+
 /* ── about ─────────────────────────────────────────────────────────── */
 .about-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:var(--s7);align-items:start}
 .about-text p{margin-bottom:var(--s4);color:var(--ink-2)}
@@ -468,7 +508,7 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
     </div>
     <div class="hero-body">
       <p class="hero-tag reveal"><span class="dot"></span> 稼働中 / AVAILABLE FOR WORK</p>
-      <h1 class="reveal">0XYAS <span class="sep">/</span> Imam Islamuddin</h1>
+      <h1 class="reveal">0XYAS <span class="sep">/</span> ゼロヤス</h1>
       <p class="hero-role reveal">AI-Powered Web3 Builder <span class="jp">ウェブスリー開発者</span></p>
       <a class="founder-badge reveal" href="https://bountix.xyz" target="_blank" rel="noopener noreferrer">
         <svg class="icon" aria-hidden="true"><use href="#i-trophy"/></svg>
@@ -697,7 +737,7 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
 
 <footer>
   <div class="footer-text">© 2026 0XYAS, AI-Powered Web3 Builder. Founder of <a href="https://bountix.xyz" target="_blank" rel="noopener noreferrer">Bountix</a>.</div>
-  <div class="footer-credit">完 / Built with AI and caffeine</div>
+  <div class="footer-credit">完</div>
 </footer>
 
 <script>
@@ -811,7 +851,7 @@ function downloadCV(){
     '0XYAS - AI-POWERED WEB3 BUILDER',
     '='.repeat(50),'',
     'PERSONAL INFORMATION',
-    'Name        : Imam Islamuddin',
+    'Name        : 0XYAS',
     'Email       : '+to,
     'LinkedIn    : https://www.linkedin.com/in/imam-i',
     'X / Twitter : https://x.com/calbuldelis69',
