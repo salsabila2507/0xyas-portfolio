@@ -119,6 +119,7 @@ nav a:hover,nav a.active{background:var(--ink);color:var(--paper)}
    ──────────────────────────────────────────────────────────────────── */
 body{background:var(--tone-2)}
 main{max-width:1120px;margin:0 auto;padding:var(--s5) var(--s4) 0}
+section{overflow:visible}
 section{
   position:relative;
   background:var(--paper);border:var(--panel);
@@ -348,6 +349,22 @@ a.panel:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink),ins
 .panel-desc,.perks li{color:var(--ink-2)}
 .tag{background:rgba(255,255,255,.5)}
 
+
+/* ── mask guardians ────────────────────────────────────────────────────
+   The menpo hang in the page margin beside the armour plates, the way a
+   chapter opener sets a figure off to one side. Decorative only, so they
+   are aria-hidden and drop out below the tablet breakpoint where the
+   margin disappears.
+   ──────────────────────────────────────────────────────────────────── */
+.mask{
+  position:absolute;z-index:0;pointer-events:none;user-select:none;
+  width:190px;filter:drop-shadow(3px 4px 0 rgba(20,20,15,.18));
+}
+.mask-right{right:-150px;top:120px}
+.mask-left{left:-150px;top:134px;transform:scaleX(-1)}
+/* only shown once the page actually has outer margin to hang them in */
+@media(max-width:1420px){.mask{display:none}}
+
 /* ── about ─────────────────────────────────────────────────────────── */
 .about-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:var(--s7);align-items:start}
 .about-text p{margin-bottom:var(--s4);color:var(--ink-2)}
@@ -541,6 +558,7 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
 </section>
 
 <section id="projects" class="tone">
+  <img class="mask mask-right" src="mask-kabuto.png" alt="" aria-hidden="true" width="190">
   <span class="sfx sfx-works" aria-hidden="true">バン</span>
   <div class="chapter reveal">
     <span class="chapter-no">第一話</span>
@@ -609,6 +627,7 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
 </section>
 
 <section id="services" class="tone">
+  <img class="mask mask-left" src="mask-oni.png" alt="" aria-hidden="true" width="190">
   <div class="chapter reveal">
     <span class="chapter-no">第三話</span>
     <h2>Services</h2>
@@ -685,6 +704,7 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
 </section>
 
 <section id="contact" class="tone-dense">
+  <img class="mask mask-right" src="mask-menpo.png" alt="" aria-hidden="true" width="190">
   <span class="sfx sfx-contact" aria-hidden="true">完</span>
   <div class="chapter reveal">
     <span class="chapter-no">最終話</span>
