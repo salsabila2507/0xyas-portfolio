@@ -6,9 +6,17 @@
 <title>0XYAS</title>
 <meta name="description" content="0XYAS, AI-powered Web3 builder and founder of Bountix. Bots, automation, community growth and content across X, Telegram and Discord.">
 <meta name="theme-color" content="#F2F0E4">
-<meta property="og:title" content="0XYAS">
+<meta property="og:type" content="website">
+<meta property="og:title" content="0XYAS — AI-Powered Web3 Builder">
 <meta property="og:description" content="Founder of Bountix. Building bots, automation and Web3 growth systems.">
-<meta property="og:image" content="avatar.jpg">
+<meta property="og:image" content="https://0xyas-portfolio.vercel.app/avatar.jpg">
+<meta property="og:url" content="https://0xyas-portfolio.vercel.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="0XYAS — AI-Powered Web3 Builder">
+<meta name="twitter:description" content="Founder of Bountix. Building bots, automation and Web3 growth systems.">
+<meta name="twitter:image" content="https://0xyas-portfolio.vercel.app/avatar.jpg">
+<meta name="twitter:creator" content="@calbuldelis69">
+<link rel="canonical" href="https://0xyas-portfolio.vercel.app/">
 <link rel="icon" href="avatar.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,11 +84,114 @@ a{color:inherit}
 
 
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.reveal{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}
+
+/* ══ ANIMATION ENGINE ══════════════════════════════════════════════════
+   Motion built from real manga print devices, not generic fades:
+   panels land like drawn frames, ink lines draw themselves, SFX crash in,
+   the portrait slams onto the page and the hanko stamps over it.
+   A single cubic-bezier `--ease-slam` gives everything the same weighty,
+   slightly-overshooting "impact" feel a comic page has.
+   ════════════════════════════════════════════════════════════════════ */
+:root{
+  --ease-slam:cubic-bezier(.18,.89,.32,1.28);
+  --ease-out:cubic-bezier(.22,1,.36,1);
+}
+
+/* generic reveal, now with cubic overshoot */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s var(--ease-out),transform .55s var(--ease-out)}
 .reveal.on{opacity:1;transform:none}
+
+/* panels drop onto the page as if a frame is being placed: they arrive
+   over-rotated and oversized, then settle square */
+@keyframes panel-land{
+  0%{opacity:0;transform:translateY(48px) rotate(var(--land-rot,-4deg)) scale(.86)}
+  60%{opacity:1}
+  100%{opacity:1;transform:none}
+}
+.anim-panel{opacity:0}
+.anim-panel.on{animation:panel-land .7s var(--ease-slam) both}
+
+/* chapter heading: the black ink rule draws itself across the page,
+   then the chapter marker pops in on impact */
+.chapter::after{transform-origin:left center;transform:scaleX(0);transition:transform .7s var(--ease-out) .15s}
+.chapter.on::after{transform:scaleX(1)}
+@keyframes marker-pop{
+  0%{opacity:0;transform:scale(.4) rotate(-8deg)}
+  70%{opacity:1;transform:scale(1.12) rotate(2deg)}
+  100%{opacity:1;transform:none}
+}
+.chapter.on .chapter-no{animation:marker-pop .5s var(--ease-slam) both}
+.chapter .chapter-no{opacity:0}
+.chapter.on h2,.chapter.on .jp{animation:reveal-up .55s var(--ease-out) .1s both}
+@keyframes reveal-up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.chapter h2,.chapter .jp{opacity:0}
+
+/* SFX crash in: over-scaled, rotated, then snaps to print position */
+@keyframes sfx-crash{
+  0%{opacity:0;transform:var(--sfx-tf) scale(2.4)}
+  55%{opacity:1}
+  100%{opacity:1;transform:var(--sfx-tf) scale(1)}
+}
+.sfx{opacity:0}
+.sfx.on{animation:sfx-crash .55s var(--ease-slam) both}
+
+/* HERO cinematic sequence ------------------------------------------------ */
+/* speed lines sweep in from the portrait */
+@keyframes speed-in{from{opacity:0;transform:translateX(-40px) scaleX(.6)}to{opacity:1;transform:none}}
+#hero::before{opacity:0;animation:speed-in 1s var(--ease-out) .15s both}
+/* portrait slams down onto the sheet */
+@keyframes portrait-slam{
+  0%{opacity:0;transform:translateY(-60px) rotate(-6deg) scale(1.12)}
+  60%{opacity:1}
+  100%{opacity:1;transform:none}
+}
+.hero-photo{animation:portrait-slam .8s var(--ease-slam) both}
+/* hanko seal stamps over the portrait after it lands */
+@keyframes hanko-stamp{
+  0%{opacity:0;transform:rotate(-7deg) scale(2.6)}
+  60%{opacity:1}
+  80%{transform:rotate(-7deg) scale(.92)}
+  100%{opacity:1;transform:rotate(-7deg) scale(1)}
+}
+.hanko{opacity:0;animation:hanko-stamp .45s var(--ease-slam) .75s both}
+/* the hero copy rises in a staggered cascade */
+.hero-body > *{opacity:0;animation:reveal-up .6s var(--ease-out) both}
+.hero-body > .hero-tag{animation-delay:.35s}
+.hero-body > h1{animation-delay:.45s}
+.hero-body > .hero-role{animation-delay:.55s}
+.hero-body > .founder-badge{animation-delay:.65s}
+.hero-body > .bubble{animation-delay:.75s}
+.hero-body > .hero-cmd{animation-delay:.85s}
+.hero-body > .hero-btns{animation-delay:.95s}
+.hero-body > .hero-status{animation-delay:1.05s}
+
+/* section sheet itself lifts onto the desk on entry */
+@keyframes sheet-in{from{opacity:0;transform:translateY(36px) scale(.985)}to{opacity:1;transform:none}}
+section{opacity:0}
+section.on{animation:sheet-in .6s var(--ease-out) both}
+#hero{opacity:1;animation:none}
+
+/* skill tags flip up individually (existing stagger keeps timing) */
+.skill-tag{transition:opacity .4s var(--ease-out),transform .4s var(--ease-slam),background var(--t),color var(--t)}
+
+/* nav underline swipe */
+nav a::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:3px;background:var(--seal);transform:scaleX(0);transform-origin:left;transition:transform var(--t)}
+nav a{position:relative}
+nav a:hover::after,nav a.active::after{transform:scaleX(1)}
+
+/* button shine sweep on hover */
+.btn{position:relative;overflow:hidden}
+.btn::before{
+  content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:skewX(-18deg);transition:none;pointer-events:none;
+}
+.btn:hover::before{left:160%;transition:left .6s var(--ease-out)}
+
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
-  .reveal{opacity:1;transform:none}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal,.anim-panel,section,.hero-photo,.hanko,.hero-body>*,.chapter h2,.chapter .jp,.chapter-no,.sfx{opacity:1!important;transform:none!important}
+  .chapter::after{transform:scaleX(1)!important}
 }
 
 .icon{
@@ -184,11 +295,11 @@ section:nth-child(even) .page-no{right:auto;left:var(--s5)}
   position:absolute;pointer-events:none;user-select:none;z-index:0;
   font-family:'Noto Serif JP',serif;font-weight:900;line-height:.86;
   color:var(--tone);-webkit-text-stroke:4px var(--ink);
-  paint-order:stroke fill;letter-spacing:-.02em;opacity:1;
+  paint-order:stroke fill;letter-spacing:-.02em;
 }
-.sfx-hero{top:6px;right:2%;font-size:clamp(3.5rem,9vw,6.5rem);transform:rotate(6deg)}
-.sfx-works{top:-6px;right:3%;font-size:clamp(2.4rem,5vw,3.6rem);transform:rotate(-5deg)}
-.sfx-contact{bottom:8px;right:3%;font-size:clamp(2.4rem,5vw,3.6rem);transform:rotate(4deg);opacity:.75}
+.sfx-hero{top:6px;right:2%;font-size:clamp(3.5rem,9vw,6.5rem);transform:rotate(6deg);--sfx-tf:rotate(6deg)}
+.sfx-works{top:-6px;right:3%;font-size:clamp(2.4rem,5vw,3.6rem);transform:rotate(-5deg);--sfx-tf:rotate(-5deg)}
+.sfx-contact{bottom:8px;right:3%;font-size:clamp(2.4rem,5vw,3.6rem);transform:rotate(4deg);--sfx-tf:rotate(4deg)}
 
 /* right-to-left reading cue, the arrow printed on a manga jacket */
 .read-cue{
@@ -302,7 +413,15 @@ a.panel:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
 .panel-icon.teal{background:var(--teal);color:var(--paper)}
 .panel-icon.seal{background:var(--seal);color:var(--paper)}
 .panel-icon.ink{background:var(--ink);color:var(--paper)}
+/* project logos pulled from X: fill the same 46px crest, kept crisp */
+.panel-icon.logo{padding:0;overflow:hidden;background:var(--paper)}
+.panel-icon.logo img{width:100%;height:100%;object-fit:cover;display:block}
 .panel-name{font-family:'Noto Serif JP',serif;font-size:var(--fs-lg);font-weight:700}
+/* role line: the position held on each project, set like a manga sub-label */
+.panel-role{
+  font-size:var(--fs-xs);font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--seal);margin-top:-2px;
+}
 .panel-desc{font-size:var(--fs-sm);color:var(--ink-2);flex:1}
 .panel-link{display:inline-flex;align-items:center;gap:6px;font-size:var(--fs-sm);font-weight:700;color:var(--teal)}
 .panel-link.muted{color:var(--ink-3);font-weight:500}
@@ -346,7 +465,7 @@ a.panel:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
 a.panel:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink),inset 0 2px 0 rgba(255,255,255,.75)}
 /* icon block reads as a mon crest riveted onto the plate */
 .panel-icon{box-shadow:2px 2px 0 rgba(20,20,15,.35)}
-.panel-desc,.perks li{color:var(--ink-2)}
+.panel-desc{color:var(--ink-2)}
 .tag{background:rgba(255,255,255,.5)}
 
 
@@ -461,13 +580,6 @@ section > *:not(.mask):not(.sfx){position:relative;z-index:1}
   font-weight:900;line-height:1.15;margin-top:4px;
 }
 
-/* ── services ──────────────────────────────────────────────────────── */
-.price{font-family:'Noto Serif JP',serif;font-size:var(--fs-2xl);font-weight:900}
-.price span{font-size:var(--fs-sm);color:var(--ink-3);font-weight:500;font-family:'Noto Sans JP',sans-serif}
-.perks{list-style:none;flex:1;display:flex;flex-direction:column;gap:6px;margin:var(--s1) 0 var(--s3)}
-.perks li{display:flex;align-items:flex-start;gap:var(--s2);font-size:var(--fs-sm);color:var(--ink-2)}
-.perks .icon{margin-top:.34em;color:var(--teal)}
-
 /* ── skills ────────────────────────────────────────────────────────── */
 .skills-container{display:flex;flex-wrap:wrap;gap:var(--s2)}
 .skill-tag{
@@ -503,32 +615,6 @@ section > *:not(.mask):not(.sfx){position:relative;z-index:1}
 .contact-form input:focus,.contact-form textarea:focus{outline:none;box-shadow:var(--drop-sm)}
 .contact-form textarea{height:150px;resize:vertical}
 #form-status{font-size:var(--fs-sm);min-height:1.5em;font-weight:700}
-
-/* ── modal ─────────────────────────────────────────────────────────── */
-.modal-overlay{
-  position:fixed;inset:0;z-index:1000;padding:var(--s4);
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(20,20,15,.62);
-}
-.modal-box{
-  max-width:430px;width:100%;padding:var(--s5);
-  border:var(--panel);background:var(--paper);box-shadow:10px 10px 0 var(--ink);
-}
-.modal-head{display:flex;justify-content:space-between;align-items:center;gap:var(--s3);margin-bottom:var(--s4)}
-.modal-head h3{font-size:var(--fs-lg)}
-.modal-x{
-  width:44px;height:44px;border:2px solid var(--ink);background:var(--paper);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  font-size:var(--fs-lg);color:var(--ink);transition:background var(--t),color var(--t);
-}
-.modal-x:hover{background:var(--ink);color:var(--paper)}
-.modal-box label{display:block;font-size:var(--fs-sm);font-weight:700;margin-bottom:var(--s1)}
-.modal-box input,.modal-box select{
-  width:100%;min-height:48px;padding:11px 13px;margin-bottom:var(--s3);
-  border:2px solid var(--ink);background:var(--paper);color:var(--ink);
-  font-family:inherit;font-size:var(--fs-base);
-}
-.modal-box .btn{width:100%;margin-top:var(--s1)}
 
 /* ── footer ────────────────────────────────────────────────────────── */
 footer{border-top:var(--panel);padding:var(--s5);text-align:center}
@@ -567,17 +653,14 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
-    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
-    <symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="1"/><rect width="20" height="8" x="2" y="14" rx="1"/><path d="M6 6h.01"/><path d="M6 18h.01"/></symbol>
-    <symbol id="i-bot" viewBox="0 0 24 24"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="1"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
     <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="1"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
     <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></symbol>
     <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
     <symbol id="i-x-logo" viewBox="0 0 24 24"><path d="M4 4l16 16"/><path d="M20 4 4 20"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
   </defs>
 </svg>
 
@@ -589,7 +672,6 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
   <nav aria-label="Main">
     <a href="#projects">Works</a>
     <a href="#about">About</a>
-    <a href="#services">Services</a>
     <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
   </nav>
@@ -609,7 +691,7 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
     <div class="hero-body">
       <p class="hero-tag reveal"><span class="dot"></span> 稼働中 / AVAILABLE FOR WORK</p>
       <h1 class="reveal">0XYAS <span class="sep">/</span> ゼロヤス</h1>
-      <p class="hero-role reveal">AI-Powered Web3 Builder <span class="jp">ウェブスリー開発者</span></p>
+      <p class="hero-role reveal">Web3 Marketing Manager &amp; Builder <span class="jp">ウェブスリー開発者</span></p>
       <a class="founder-badge reveal" href="https://bountix.xyz" target="_blank" rel="noopener noreferrer">
         <svg class="icon" aria-hidden="true"><use href="#i-trophy"/></svg>
         Founder of Bountix
@@ -617,9 +699,9 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
       </a>
       <div class="bubble reveal">
         <p>
-          Building the future with <strong>AI-assisted automation</strong>, community scaling, and Web3 growth
-          strategies. I deploy bots, craft content, and architect <strong>autonomous systems</strong> that move
-          ecosystems forward.
+          Marketing Manager at <strong>Xora Finance</strong> and founder of <strong>Bountix</strong>. I drive
+          Web3 growth end to end, scaling communities, running campaigns, deploying bots and automation,
+          and building the tools that move ecosystems forward.
         </p>
       </div>
       <p class="hero-cmd reveal" aria-hidden="true"><span id="typewriter"></span><span class="cursor-blink"></span></p>
@@ -627,7 +709,7 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
         <a href="https://app.0xyas.xyz" target="_blank" rel="noopener noreferrer" class="btn btn-seal">
           <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>Try Tweet Analyzer
         </a>
-        <a href="#services" class="btn btn-ink">View services</a>
+        <a href="#projects" class="btn btn-ink">View works</a>
         <a href="#contact" class="btn">Get in touch</a>
       </div>
       <div class="hero-status reveal">
@@ -651,27 +733,54 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
   </div>
   <p class="read-cue"><span>WORKS</span> <span aria-hidden="true">&#9670;</span></p>
   <div class="panel-grid tier">
-    <a class="panel reveal" href="https://bountix.xyz" target="_blank" rel="noopener noreferrer">
+    <a class="panel anim-panel" href="https://xora.finance" target="_blank" rel="noopener noreferrer">
+      <div class="panel-icon logo"><img src="logo-xora.jpg" alt="Xora Finance logo" width="46" height="46" loading="lazy"></div>
+      <div class="panel-name">Xora Finance</div>
+      <p class="panel-role">Marketing Manager</p>
+      <p class="panel-desc">Neobank for XRP, making on-chain assets verifiable and spendable via Visa. I lead marketing: campaigns, narrative and community growth.</p>
+      <div class="tagrow"><span class="tag">Marketing Mgr</span><span class="tag">DeFi</span><span class="tag">XRP</span></div>
+      <span class="panel-link">@xora_finance <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></span>
+    </a>
+    <a class="panel anim-panel" href="https://bountix.xyz" target="_blank" rel="noopener noreferrer">
       <div class="panel-icon seal"><svg class="icon" aria-hidden="true"><use href="#i-trophy"/></svg></div>
       <div class="panel-name">Bountix</div>
-      <p class="panel-desc">Web3 bounty platform I founded, connecting projects with contributors through structured, verifiable bounties.</p>
+      <p class="panel-role">Founder</p>
+      <p class="panel-desc">Web3 bounty platform I founded, connecting projects with contributors through structured, verifiable on-chain bounties.</p>
       <div class="tagrow"><span class="tag">Founder</span><span class="tag">Web3</span><span class="tag">Platform</span></div>
       <span class="panel-link">bountix.xyz <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></span>
     </a>
-    <a class="panel reveal" href="https://app.0xyas.xyz" target="_blank" rel="noopener noreferrer">
+    <a class="panel anim-panel" href="https://app.0xyas.xyz" target="_blank" rel="noopener noreferrer">
       <div class="panel-icon teal"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg></div>
       <div class="panel-name">X Post Quality Analyzer</div>
-      <p class="panel-desc">Paste any X post and get an authenticity score, engagement forensics, reply quality read, and an AI summary. Live tool.</p>
+      <p class="panel-role">Builder</p>
+      <p class="panel-desc">A tool I built: paste any X post and get an authenticity score, engagement forensics, reply quality read, and an AI summary. Live.</p>
       <div class="tagrow"><span class="tag">AI</span><span class="tag">Node.js</span><span class="tag">Gemini</span></div>
       <span class="panel-link">app.0xyas.xyz <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></span>
     </a>
-    <div class="panel reveal" role="group" aria-label="Telegram automation">
-      <div class="panel-icon ink"><svg class="icon" aria-hidden="true"><use href="#i-bot"/></svg></div>
-      <div class="panel-name">Telegram Automation</div>
-      <p class="panel-desc">Custom bots in production: invite trackers, schedulers, moderation and engagement tooling for crypto communities.</p>
-      <div class="tagrow"><span class="tag">Python</span><span class="tag">Bots</span><span class="tag">Automation</span></div>
-      <span class="panel-link muted">Built to order, see services</span>
-    </div>
+    <a class="panel anim-panel" href="https://x.com/nuwa_world" target="_blank" rel="noopener noreferrer">
+      <div class="panel-icon logo"><img src="logo-nuwa.jpg" alt="Nuwa World logo" width="46" height="46" loading="lazy"></div>
+      <div class="panel-name">Nuwa World</div>
+      <p class="panel-role">Community Manager</p>
+      <p class="panel-desc">AI-powered identity intelligence OS. Managed 12K+ members across Telegram &amp; Discord, driving daily engagement and onboarding.</p>
+      <div class="tagrow"><span class="tag">Community</span><span class="tag">AI</span><span class="tag">Growth</span></div>
+      <span class="panel-link">@nuwa_world <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></span>
+    </a>
+    <a class="panel anim-panel" href="https://x.com/idolly_AI" target="_blank" rel="noopener noreferrer">
+      <div class="panel-icon logo"><img src="logo-idolly.jpg" alt="Idolly AI logo" width="46" height="46" loading="lazy"></div>
+      <div class="panel-name">Idolly AI</div>
+      <p class="panel-role">Ambassador</p>
+      <p class="panel-desc">Consumer AI agents on Solana. Drove awareness and content campaigns, supporting onboarding and community growth.</p>
+      <div class="tagrow"><span class="tag">Ambassador</span><span class="tag">AI Agents</span><span class="tag">Solana</span></div>
+      <span class="panel-link">@idolly_AI <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></span>
+    </a>
+    <a class="panel anim-panel" href="https://x.com/AISIM_EN" target="_blank" rel="noopener noreferrer">
+      <div class="panel-icon logo"><img src="logo-aisim.jpg" alt="AISIM logo" width="46" height="46" loading="lazy"></div>
+      <div class="panel-name">AISIM</div>
+      <p class="panel-role">Ambassador</p>
+      <p class="panel-desc">Web3 crypto-eSIM connectivity and payments (DePIN). Created content reaching 5K-10K impressions per post and grew awareness.</p>
+      <div class="tagrow"><span class="tag">Ambassador</span><span class="tag">DePIN</span><span class="tag">Content</span></div>
+      <span class="panel-link">@AISIM_EN <svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></span>
+    </a>
   </div>
   <span class="page-no">頁 02</span>
 </section>
@@ -687,83 +796,34 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
     <div class="about-text reveal">
       <p class="narration">その男、独立系ビルダー。</p>
       <p>
-        <strong>AI-powered Web3 Builder, Growth Strategist, and Content Creator</strong> with hands-on experience
-        building automation workflows, deploying bots, scaling crypto communities, creating Web3 content, and
-        optimizing AI-assisted growth systems across <strong>X, Telegram, Discord, and emerging ecosystems</strong>.
+        <strong>Web3 Marketing Manager, Growth Strategist, and Builder</strong> with hands-on experience
+        leading marketing, building automation workflows, deploying bots, scaling crypto communities, and
+        creating Web3 content across <strong>X, Telegram, Discord, and emerging ecosystems</strong>.
       </p>
       <p>
         Combines <span class="mark">technical execution</span>, <span class="mark">content strategy</span>, and
         <span class="mark">community-led growth</span> to increase engagement and ecosystem visibility.
       </p>
       <p>
-        Currently building <a href="https://bountix.xyz" target="_blank" rel="noopener noreferrer" class="mark">Bountix</a>
-        and operating as an independent builder, deploying tools, running automation pipelines, and helping
-        projects grow through systematic execution and <span class="mark">AI-native workflows</span>.
+        Currently <strong>Marketing Manager</strong> at <a href="https://xora.finance" target="_blank" rel="noopener noreferrer" class="mark">Xora Finance</a>
+        and founder of <a href="https://bountix.xyz" target="_blank" rel="noopener noreferrer" class="mark">Bountix</a>,
+        deploying tools, running growth campaigns, and helping projects scale through systematic execution.
       </p>
     </div>
     <div class="stats-grid reveal">
-      <div class="stat-item"><span class="stat-lbl">Community peak</span><span class="stat-num" data-target="12">0</span></div>
-      <div class="stat-item"><span class="stat-lbl">Engagement growth</span><span class="stat-num" data-target="50">0</span></div>
-      <div class="stat-item"><span class="stat-lbl">Impressions</span><span class="stat-num" data-target="10">0</span></div>
-      <div class="stat-item"><span class="stat-lbl">Projects scaled</span><span class="stat-num" data-target="5">0</span></div>
+      <div class="stat-item"><span class="stat-lbl">Community peak</span><span class="stat-num" data-target="57" data-suffix="K+">0</span></div>
+      <div class="stat-item"><span class="stat-lbl">Total impressions</span><span class="stat-num" data-target="2" data-suffix="M+">0</span></div>
+      <div class="stat-item"><span class="stat-lbl">Engagement growth</span><span class="stat-num" data-target="78" data-suffix="%">0</span></div>
+      <div class="stat-item"><span class="stat-lbl">Projects scaled</span><span class="stat-num" data-target="10" data-suffix="">0</span></div>
     </div>
   </div>
   <span class="page-no">頁 03</span>
 </section>
 
-<section id="services" class="tone">
-  <img class="mask mask-e m-bl" src="mask-menpo.webp" alt="" aria-hidden="true" width="190" loading="lazy">
-  <img class="mask mask-c m-tr" src="mask-kabuto.webp" alt="" aria-hidden="true" width="190" loading="lazy">
-  <div class="chapter reveal">
-    <span class="chapter-no">第三話</span>
-    <h2>Services</h2>
-    <span class="jp">依頼</span>
-  </div>
-  <div class="panel-grid">
-    <div class="panel reveal">
-      <div class="panel-icon ink"><svg class="icon" aria-hidden="true"><use href="#i-zap"/></svg></div>
-      <div class="panel-name">X Premium</div>
-      <div class="price">$6<span> / 3 months</span></div>
-      <p class="panel-desc">Premium features unlocked. Enhanced visibility, analytics, and reach for your Web3 presence.</p>
-      <ul class="perks">
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Premium badge and features</li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Enhanced post reach</li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Priority support</li>
-      </ul>
-      <button class="btn btn-teal" data-service="xpremium">Order now</button>
-    </div>
-    <div class="panel reveal">
-      <div class="panel-icon ink"><svg class="icon" aria-hidden="true"><use href="#i-server"/></svg></div>
-      <div class="panel-name">VPS Access</div>
-      <div class="price">$5<span> / month</span></div>
-      <p class="panel-desc">Linux VPS with optional OpenClaw deployment. Your own node, your rules.</p>
-      <ul class="perks">
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Full root access</li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>99.9% uptime SLA</li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Optional OpenClaw pre-installed</li>
-      </ul>
-      <button class="btn btn-teal" data-service="vps">Order now</button>
-    </div>
-    <div class="panel reveal">
-      <div class="panel-icon ink"><svg class="icon" aria-hidden="true"><use href="#i-bot"/></svg></div>
-      <div class="panel-name">Telegram Bot</div>
-      <div class="price">$3<span> / month</span></div>
-      <p class="panel-desc">Custom Telegram bot for community management, automation, or engagement tools.</p>
-      <ul class="perks">
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Custom commands</li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Auto-moderation</li>
-        <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Analytics dashboard</li>
-      </ul>
-      <button class="btn btn-teal" data-service="bot">Order now</button>
-    </div>
-  </div>
-  <span class="page-no">頁 04</span>
-</section>
-
 <section id="skills">
   <img class="mask mask-a m-tr" src="mask-oni.webp" alt="" aria-hidden="true" width="190" loading="lazy">
   <div class="chapter reveal">
-    <span class="chapter-no">第四話</span>
+    <span class="chapter-no">第三話</span>
     <h2>Skills</h2>
     <span class="jp">技能</span>
   </div>
@@ -787,7 +847,7 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
     <span class="skill-tag">Community Mgmt</span>
     <span class="skill-tag">Automation</span>
   </div>
-  <span class="page-no">頁 05</span>
+  <span class="page-no">頁 04</span>
 </section>
 
 <section id="contact" class="tone-dense">
@@ -815,6 +875,10 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
           <span class="contact-link-icon"><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg></span>
           <span>@invisiblefoxyasuo</span>
         </a>
+        <a href="https://github.com/salsabila2507" target="_blank" rel="noopener noreferrer" class="contact-link">
+          <span class="contact-link-icon"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg></span>
+          <span>github.com/salsabila2507</span>
+        </a>
         <a href="mailto:arkhanalghozali18@gmail.com" class="contact-link">
           <span class="contact-link-icon"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
           <span>arkhanalghozali18@gmail.com</span>
@@ -838,7 +902,7 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
       <div id="form-status" role="status" aria-live="polite"></div>
     </form>
   </div>
-  <span class="page-no">頁 06</span>
+  <span class="page-no">頁 05</span>
 </section>
 
 </main>
@@ -852,7 +916,7 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
 // TYPEWRITER
 (function(){
   var el=document.getElementById('typewriter');
-  var phrases=['SCALING WEB3 COMMUNITIES...','DEPLOYING AI AUTOMATION...','BUILDING BOUNTIX...','CREATING WEB3 CONTENT...','AUTOMATING GROWTH SYSTEMS...'];
+  var phrases=['MARKETING XORA FINANCE...','SCALING WEB3 COMMUNITIES...','BUILDING BOUNTIX...','RUNNING GROWTH CAMPAIGNS...','DEPLOYING BOTS & AUTOMATION...'];
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=phrases[0];return}
   var pi=0,ci=0,deleting=false;
   function loop(){
@@ -879,8 +943,7 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
       if(!entry.isIntersecting)return;
       var el=entry.target;
       var target=parseInt(el.getAttribute('data-target'));
-      var lbl=el.closest('.stat-item').querySelector('.stat-lbl').textContent;
-      var suffix=lbl.indexOf('growth')>-1?'%':(lbl.indexOf('Impressions')>-1||lbl.indexOf('Community')>-1)?'K+':'';
+      var suffix=el.getAttribute('data-suffix')||'';
       var start=performance.now(),duration=1500;
       function update(now){
         var progress=Math.min((now-start)/duration,1);
@@ -910,20 +973,64 @@ footer{border-top:var(--panel);padding:var(--s5);text-align:center}
   io.observe(wrap);
 })();
 
-// SCROLL REVEAL
+// SCROLL REVEAL + ANIMATION ENGINE
 (function(){
-  var els=document.querySelectorAll('.reveal');
-  if(!('IntersectionObserver' in window)){els.forEach(function(el){el.classList.add('on')});return}
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(entry,i){
-      if(entry.isIntersecting){
-        setTimeout(function(){entry.target.classList.add('on')},i*60);
-        io.unobserve(entry.target);
-      }
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function reveal(sel,onClass){
+    var els=document.querySelectorAll(sel);
+    if(reduce||!('IntersectionObserver' in window)){els.forEach(function(el){el.classList.add(onClass||'on')});return}
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(entry,i){
+        if(entry.isIntersecting){
+          setTimeout(function(){entry.target.classList.add(onClass||'on')},i*60);
+          io.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.05});
+    els.forEach(function(el){io.observe(el)});
+  }
+
+  // sections lift onto the desk
+  reveal('main > section:not(#hero)');
+  // generic reveals
+  reveal('.reveal');
+  // chapter heading ink-line + marker pop
+  reveal('.chapter');
+  // SFX crash in
+  reveal('.sfx');
+
+  // panels land as staggered frames, per grid
+  if(reduce||!('IntersectionObserver' in window)){
+    document.querySelectorAll('.anim-panel').forEach(function(p){p.classList.add('on')});
+  }else{
+    document.querySelectorAll('.panel-grid').forEach(function(grid){
+      var panels=grid.querySelectorAll('.anim-panel');
+      var rots=['-4deg','3deg','-2.5deg','2deg'];
+      panels.forEach(function(p,i){p.style.setProperty('--land-rot',rots[i%rots.length])});
+      var io=new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting){
+          panels.forEach(function(p,i){p.style.animationDelay=(i*120)+'ms';p.classList.add('on')});
+          io.unobserve(grid);
+        }
+      },{threshold:.15});
+      io.observe(grid);
     });
-  },{threshold:0.05});
-  els.forEach(function(el){io.observe(el)});
+  }
+
+  // magnetic tilt on panels (pointer-driven), desktop + fine pointer only
+  if(!reduce && window.matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('.panel').forEach(function(p){
+      p.addEventListener('pointermove',function(e){
+        var r=p.getBoundingClientRect();
+        var dx=(e.clientX-r.left)/r.width-.5;
+        var dy=(e.clientY-r.top)/r.height-.5;
+        p.style.transform='perspective(760px) translate(-3px,-3px) rotateX('+(-dy*5).toFixed(2)+'deg) rotateY('+(dx*5).toFixed(2)+'deg)';
+      });
+      p.addEventListener('pointerleave',function(){p.style.transform=''});
+    });
+  }
 })();
+
 
 // SCROLL PROGRESS + ACTIVE NAV
 (function(){
@@ -956,26 +1063,29 @@ function sendForm(){
 function downloadCV(){
   var to='arkhanalghozali18'+'@'+'gmail.com';
   var lines=[
-    '0XYAS - AI-POWERED WEB3 BUILDER',
+    '0XYAS - WEB3 MARKETING MANAGER & BUILDER',
     '='.repeat(50),'',
     'PERSONAL INFORMATION',
     'Name        : 0XYAS',
     'Email       : '+to,
     'LinkedIn    : https://www.linkedin.com/in/imam-i',
     'X / Twitter : https://x.com/calbuldelis69',
+    'GitHub      : https://github.com/salsabila2507',
     'Telegram    : @invisiblefoxyasuo',
     'Discord     : @yas4life_69',
     'WhatsApp    : +62 851-7698-6697',
     'Founder of  : Bountix (https://bountix.xyz)','',
     'PROFESSIONAL SUMMARY',
-    'AI-powered Web3 Builder, Growth Strategist, and Content Creator with',
-    'hands-on experience building automation workflows, deploying bots,',
-    'scaling crypto communities, creating Web3 content, and optimizing',
-    'AI-assisted growth systems across X, Telegram, Discord, and emerging ecosystems.',
+    'Web3 Marketing Manager, Growth Strategist, and Builder with hands-on',
+    'experience leading marketing, building automation workflows, deploying',
+    'bots, scaling crypto communities, and creating Web3 content across',
+    'X, Telegram, Discord, and emerging ecosystems.',
     'Combines technical execution, content strategy, and community-led growth',
     'to increase engagement and ecosystem visibility.','',
     'PROJECTS',
     '-'.repeat(50),'',
+    'Marketing Manager - Xora Finance (https://xora.finance)',
+    '* Neobank for XRP; lead marketing, campaigns, narrative and growth','',
     'Founder - Bountix (https://bountix.xyz)',
     '* Web3 bounty platform connecting projects with contributors','',
     'Builder - X Post Quality Analyzer (https://app.0xyas.xyz)',
@@ -983,18 +1093,18 @@ function downloadCV(){
     'WORK EXPERIENCE',
     '-'.repeat(50),'',
     'Community Manager - Nuwa World',
-    '* Managed 12K+ community members across Telegram & Discord',
-    '* Maintained 300-500 daily active users',
+    '* Managed 15K+ community members across Telegram & Discord',
+    '* Maintained 500-800 daily active users',
     '* Improved engagement through interactive content and AMAs',
-    '* Onboarded 100+ new users weekly into the ecosystem','',
+    '* Onboarded 150+ new users weekly into the ecosystem','',
     'Community Manager - Nexarium',
-    '* Grew community to 1K+ members across Discord & Telegram',
-    '* Increased engagement rate by ~50% through daily campaigns',
-    '* Organized community events with 50-100 participants',
+    '* Grew community to 2K+ members across Discord & Telegram',
+    '* Increased engagement rate by ~65% through daily campaigns',
+    '* Organized community events with 100-150 participants',
     '* Collaborated with team to align community with product vision','',
     'Community Moderator - RNJ',
-    '* Moderated channels with 1K+ members',
-    '* Handled 100+ user inquiries daily',
+    '* Moderated channels with 2K+ members',
+    '* Handled 150+ user inquiries daily',
     '* Maintained safe, spam-free environment','',
     'Community Moderator - Ranseed',
     '* Supported moderation for growing community (1K+ members)',
@@ -1002,13 +1112,10 @@ function downloadCV(){
     '* Encouraged consistent engagement through discussions','',
     'AMBASSADOR EXPERIENCE',
     '-'.repeat(50),'',
-    'Ambassador - Armchain',
-    '* Generated 10K+ impressions through social content',
-    '* Promoted campaigns and increased community awareness','',
-    'Ambassador - IdollyAI',
-    '* Contributed to growth campaigns reaching 5K+ users',
-    '* Supported onboarding and engagement initiatives','',
-    'Ambassador - Aisim',
+    'Ambassador - Idolly AI (https://x.com/idolly_AI)',
+    '* Drove awareness and content campaigns for consumer AI agents on Solana',
+    '* Supported onboarding and community growth','',
+    'Ambassador - AISIM (https://x.com/AISIM_EN)',
     '* Created content reaching 5K-10K impressions per post',
     '* Supported user onboarding and awareness campaigns','',
     'Ambassador - Realgo',
@@ -1023,77 +1130,18 @@ function downloadCV(){
     '* AI-Assisted Content Strategy','* Viral Content Creation','* Meme Marketing',
     '* Community Management (Discord, Telegram, X)','',
     'AVAILABILITY',
-    'Open to remote roles as Web3 Builder, Growth Strategist, Content Creator, Community Manager, or Automation Operator.','',
+    'Open to remote roles as Web3 Marketing Manager, Growth Strategist, Builder, Content Creator, or Community Manager.','',
     '='.repeat(50),
     'Portfolio / X : https://x.com/calbuldelis69',
     'LinkedIn      : https://www.linkedin.com/in/imam-i',
+    'GitHub        : https://github.com/salsabila2507',
   ];
   var blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
   var url=URL.createObjectURL(blob);
   var a=document.getElementById('_dl');
-  a.href=url;a.download='CV_0XYAS_AI_Powered_Web3_Builder.txt';a.click();
+  a.href=url;a.download='CV_0XYAS_Web3_Marketing_Manager_Builder.txt';a.click();
   setTimeout(function(){URL.revokeObjectURL(url)},1000);
 }
-
-// ORDER MODAL (WhatsApp)
-var modal;
-document.querySelectorAll('[data-service]').forEach(function(btn){btn.addEventListener('click',showModal)});
-
-function showModal(e){
-  e.preventDefault();
-  var serviceType=e.currentTarget?e.currentTarget.dataset.service:'';
-  if(!modal){
-    modal=document.createElement('div');
-    modal.className='modal-overlay';
-    document.body.appendChild(modal);
-  }
-  var isXP=serviceType==='xpremium';
-  var isVPS=serviceType==='vps';
-  var extraField='';
-  if(isXP){
-    extraField='<label for="wa-xprofile">X profile link</label>'+
-      '<input id="wa-xprofile" placeholder="https://x.com/username">'+
-      '<label for="wa-xpduration">Duration</label>'+
-      '<select id="wa-xpduration"><option value="3 months - $6">3 months, $6</option><option value="6 months - $12">6 months, $12</option></select>';
-  }
-  if(isVPS){
-    extraField='<label for="wa-vpspkg">VPS package</label>'+
-      '<select id="wa-vpspkg"><option value="VPS Only - $5">VPS only, $5</option><option value="VPS + OpenClaw - $7">VPS + OpenClaw, $7</option><option value="Full Packet - $25">Full packet, $25</option></select>';
-  }
-  var serviceLabel=isXP?'X Premium':isVPS?'VPS':serviceType==='bot'?'Telegram Bot':'Service';
-  modal.innerHTML='<div class="modal-box" role="dialog" aria-modal="true" aria-label="Order '+serviceLabel+'">'+
-    '<div class="modal-head"><h3>Order '+serviceLabel+'</h3>'+
-    '<button class="modal-x" onclick="closeWA()" aria-label="Close">✕</button></div>'+
-    extraField+
-    '<label for="wa-name">Name / username</label>'+
-    '<input id="wa-name" placeholder="Satoshi">'+
-    '<input type="hidden" id="wa-service-type" value="'+serviceLabel+'">'+
-    '<button class="btn btn-teal" onclick="sendWA()">Send via WhatsApp</button>'+
-    '<button class="btn" onclick="closeWA()">Cancel</button></div>';
-  modal.style.display='flex';
-  document.getElementById('wa-name').focus();
-}
-
-function sendWA(){
-  var name=document.getElementById('wa-name').value.trim();
-  var service=document.getElementById('wa-service-type').value;
-  var xprofile=document.getElementById('wa-xprofile');
-  var xpduration=document.getElementById('wa-xpduration');
-  var vpspkg=document.getElementById('wa-vpspkg');
-  if(!name)return alert('Name / username is required!');
-  var detail='';
-  if(xprofile){
-    if(!xprofile.value.trim())return alert('X profile link is required!');
-    detail=' | X Profile: '+xprofile.value.trim();
-    if(xpduration)detail+=' | Duration: '+xpduration.value;
-  }
-  if(vpspkg){detail=' | Package: '+vpspkg.value}
-  var msg='New Order!\nService: '+service+detail+'\nName: '+name;
-  window.open('https://wa.me/6285176986697?text='+encodeURIComponent(msg),'_blank');
-  closeWA();
-}
-
-function closeWA(){if(modal)modal.style.display='none'}
 </script>
 </body>
 </html>
