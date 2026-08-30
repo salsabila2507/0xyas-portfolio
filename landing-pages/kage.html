@@ -96,6 +96,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 #pre{
   position:fixed; inset:0; z-index:100; background:#05070a;
   display:flex; align-items:center; justify-content:center;
+  pointer-events:none;
   transition:opacity .8s var(--ease), visibility .8s;
 }
 #pre.done{ opacity:0; visibility:hidden; pointer-events:none; }
@@ -4809,6 +4810,12 @@ function start() {
   queue();
   window.__kage = window.__secret = { RIG: RIG, WORLD: WORLD, WORD: WORD, CAM: CAM, POST: POST, renderer: renderer, scene: scene, camera: camera, anchors: () => anchors };
 }
+
+setTimeout(() => {
+  document.body.classList.remove('is-locked');
+  preEl.classList.add('done');
+  $$('[data-rv], .mask-line').forEach(element => element.classList.add('rv-in'));
+}, 4000);
 
 if (document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(boot, 0);
 else addEventListener('DOMContentLoaded', boot);
