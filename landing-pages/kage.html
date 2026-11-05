@@ -269,7 +269,13 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .gate-stats div span{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
 
 /* — chapter II: pathways cards */
-.cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.4vw,22px); align-items:start; }
+.cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:clamp(10px,1.4vw,22px); align-items:start; }
+.card-anchor{ display:block; color:inherit; text-decoration:none; }
+.card--static .card-fr,
+.card-fr--static{
+  background:linear-gradient(150deg,#101a1d,#0a0d10 62%,#1a0c0b);
+}
+.card:nth-child(n+4){ transform:none; }
 .card{ position:relative; cursor:pointer; }
 .card:nth-child(1){ transform:translateY(0); }
 .card:nth-child(2){ transform:translateY(clamp(26px,5vw,74px)); }
@@ -960,7 +966,7 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
     <div class="hero-cue" data-rv="fade"><span>Scroll to explore</span><span class="track"><i></i></span></div>
     <div class="chapters" id="chips">
       <div class="chip" data-chip="0" data-rv="up" data-cursor><span class="num">01</span>
-        <span class="tx"><b>Selected Work</b><p>Products and campaigns built with real utility.</p></span></div>
+        <span class="tx"><b>Selected Work</b><p>Products, tools, and shipped playtests.</p></span></div>
       <div class="chip" data-chip="1" data-rv="up" data-cursor><span class="num">02</span>
         <span class="tx"><b>Web3 Growth</b><p>Strategy, narrative, content, and community systems.</p></span></div>
       <div class="chip" data-chip="2" data-rv="up" data-cursor><span class="num">03</span>
@@ -1007,7 +1013,7 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
     <h2 class="display h-sec" data-rv="up">Builder brain. Growth instinct. One clear direction.</h2>
     <div class="gate-copy">
       <p class="lead" data-rv="up">I combine technical execution, content strategy, and community-led growth to help Web3 products become easier to understand, use, and remember.</p>
-      <p class="body" data-rv="up">Currently Marketing Manager at Xora Finance and founder of Bountix, deploying tools, running growth campaigns, and building useful systems from Jakarta.</p>
+      <p class="body" data-rv="up">Independent builder in Jakarta. Founder of Bountix and Marketing Manager at Xora Finance. I ship Web3 and AI products, Discord and Telegram automation, and community systems people can actually use.</p>
       <a class="arrowlink" href="#pathways" data-rv="fade" data-cursor>
         <span>Explore selected work</span>
         <span class="ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
@@ -1015,9 +1021,9 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
     </div>
   </div>
   <div class="gate-stats" data-rv="up">
-    <div><b>57K+</b><span>Community peak</span></div>
-    <div><b>2M+</b><span>Total impressions</span></div>
-    <div><b>10</b><span>Projects scaled</span></div>
+    <div><b>iNeedCodes</b><span>Open-source CLI on npm</span></div>
+    <div><b>iNeed</b><span>Free-tier AI access</span></div>
+    <div><b>Bountix</b><span>Marketplace on Stellar</span></div>
     <div><b>GMT+7</b><span>Jakarta</span></div>
   </div>
 </section>
@@ -1042,30 +1048,97 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
   <div class="sec-head" data-rv="fade">
     <span class="k"><b>02</b> — Selected Work</span><span class="rule"></span><span class="k jp">庭園</span>
   </div>
+  <p class="body" data-rv="up" style="margin:0 0 22px;max-width:42rem">Products, tools, and shipped playtests — linked to live builds where available.</p>
   <div class="cards" id="cards">
     <article class="card" data-rv="up" data-view="0" data-cursor>
+      <a class="card-anchor" href="https://bountix-stellar.vercel.app" target="_blank" rel="noopener noreferrer" data-cursor>
       <div class="card-fr" data-frame>
                 <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
         <i class="glow" style="--gx:80.2%; --gy:23.9%; --gr:22%; --gt:6.1s; --gt2:9.7s; --gc1:rgba(255,142,108,.50); --gc2:rgba(212,56,38,.24)"></i>
         <div class="card-lab"><b>Bountix</b><span class="jp">創業</span></div>
       </div>
-      <div class="card-meta"><span>Web3 bounty platform</span><span>01 / 03</span></div>
+      <div class="card-meta"><span>Task marketplace with USDC escrow on Stellar</span><span>01 / 09</span></div>
+      </a>
     </article>
     <article class="card" data-rv="up" data-view="1" data-cursor>
+      <a class="card-anchor" href="https://xora.finance" target="_blank" rel="noopener noreferrer" data-cursor>
       <div class="card-fr" data-frame>
                 <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow glow--flame" style="--gx:70.5%; --gy:47.2%; --gr:14%; --gt:3.7s; --gt2:5.3s; --gc1:rgba(255,198,124,.62); --gc2:rgba(226,118,40,.30)"></i>
+        <i class="glow--flame" style="--gx:70.5%; --gy:47.2%; --gr:14%; --gt:3.7s; --gt2:5.3s; --gc1:rgba(255,198,124,.62); --gc2:rgba(226,118,40,.30)"></i>
         <div class="card-lab"><b>Xora Finance</b><span class="jp">成長</span></div>
       </div>
-      <div class="card-meta"><span>Marketing &amp; growth</span><span>02 / 03</span></div>
+      <div class="card-meta"><span>Marketing Manager — growth for XRP neobank</span><span>02 / 09</span></div>
+      </a>
     </article>
     <article class="card" data-rv="up" data-view="2" data-cursor>
+      <a class="card-anchor" href="https://app.0xyas.xyz" target="_blank" rel="noopener noreferrer" data-cursor>
       <div class="card-fr" data-frame>
                 <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
         <i class="glow" style="--gx:48.0%; --gy:16.8%; --gr:20%; --gt:7.3s; --gt2:11.2s; --gc1:rgba(255,138,104,.52); --gc2:rgba(208,54,36,.24)"></i>
-        <div class="card-lab"><b>Tweet Analyzer</b><span class="jp">構築</span></div>
+        <div class="card-lab"><b>X Post Analyzer</b><span class="jp">構築</span></div>
       </div>
-      <div class="card-meta"><span>AI-powered product</span><span>03 / 03</span></div>
+      <div class="card-meta"><span>Engagement authenticity tooling for X posts</span><span>03 / 09</span></div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://ineed.codes" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-fr card-fr--static">
+                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        <i class="glow" style="--gx:55%; --gy:30%; --gr:18%; --gt:6s; --gt2:9s; --gc1:rgba(255,142,108,.40); --gc2:rgba(212,56,38,.20)"></i>
+        <div class="card-lab"><b>iNeedCodes</b><span class="jp">制作</span></div>
+      </div>
+      <div class="card-meta"><span>Autonomous CLI AI agent — MIT, on npm as ineedcodes</span><span>04 / 09</span></div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://ineed.web.id" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-fr card-fr--static">
+                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        <i class="glow" style="--gx:55%; --gy:30%; --gr:18%; --gt:6s; --gt2:9s; --gc1:rgba(255,142,108,.40); --gc2:rgba(212,56,38,.20)"></i>
+        <div class="card-lab"><b>iNeed</b><span class="jp">学習</span></div>
+      </div>
+      <div class="card-meta"><span>Free-tier AI learning hub and OpenAI-compatible API</span><span>05 / 09</span></div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://squeekcity.space" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-fr card-fr--static">
+                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        <i class="glow" style="--gx:55%; --gy:30%; --gr:18%; --gt:6s; --gt2:9s; --gc1:rgba(255,142,108,.40); --gc2:rgba(212,56,38,.20)"></i>
+        <div class="card-lab"><b>Squeek City</b><span class="jp">協働</span></div>
+      </div>
+      <div class="card-meta"><span>Grand Theft Hamster — built by 0xyas &amp; Jex on Squeekchain</span><span>06 / 09</span></div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://salsabila2507.github.io/squeek-heist/" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-fr card-fr--static">
+                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        <i class="glow" style="--gx:55%; --gy:30%; --gr:18%; --gt:6s; --gt2:9s; --gc1:rgba(255,142,108,.40); --gc2:rgba(212,56,38,.20)"></i>
+        <div class="card-lab"><b>Squeek Heist</b><span class="jp">制作</span></div>
+      </div>
+      <div class="card-meta"><span>Pixel heist driven by Squeektoshi's real wheel data</span><span>07 / 09</span></div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://ineedhood-hunt.vercel.app" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-fr card-fr--static">
+                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        <i class="glow" style="--gx:55%; --gy:30%; --gr:18%; --gt:6s; --gt2:9s; --gc1:rgba(255,142,108,.40); --gc2:rgba(212,56,38,.20)"></i>
+        <div class="card-lab"><b>ineedhood Hunt</b><span class="jp">試験</span></div>
+      </div>
+      <div class="card-meta"><span>Browser hood playtest with daily hunts and fights</span><span>08 / 09</span></div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://github.com/salsabila2507/bitget-llm-bot" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-fr card-fr--static">
+                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        <i class="glow" style="--gx:55%; --gy:30%; --gr:18%; --gt:6s; --gt2:9s; --gc1:rgba(255,142,108,.40); --gc2:rgba(212,56,38,.20)"></i>
+        <div class="card-lab"><b>Automation</b><span class="jp">自動化</span></div>
+      </div>
+      <div class="card-meta"><span>Discord &amp; Telegram bots, trading and mint tooling</span><span>09 / 09</span></div>
+      </a>
     </article>
   </div>
 </section>
@@ -1107,19 +1180,19 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
     <div class="les" data-les="2" data-cursor>
       <span class="k">03</span>
       <h3>Automation Systems<em class="jp">焼杉</em></h3>
-      <p>Bots, APIs, AI workflows, Linux servers, and repeatable operations.</p>
+      <p>Discord and Telegram automation bots, APIs, AI workflows, Linux servers, and repeatable operations.</p>
       <span class="t">Technical</span><i class="bar"></i>
     </div>
     <div class="les" data-les="3" data-cursor>
       <span class="k">04</span>
       <h3>Community Growth<em class="jp">灯籠</em></h3>
-      <p>Onboarding, activation, content loops, and sustainable engagement.</p>
+      <p>Community management, moderation, onboarding, activation, and content loops that keep people around.</p>
       <span class="t">Community</span><i class="bar"></i>
     </div>
     <div class="les" data-les="4" data-cursor>
       <span class="k">05</span>
       <h3>Web3 Research<em class="jp">朱月</em></h3>
-      <p>Turning emerging ecosystems and complex technology into clear opportunities.</p>
+      <p>Ecosystem and security research — turning complex systems into clear next steps.</p>
       <span class="t">Research</span><i class="bar"></i>
     </div>
   </div>
@@ -1173,7 +1246,7 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
       </svg>
       <p>Web3 growth, product building, automation, and community systems — developed from Jakarta for teams building what comes next.</p>
     </div>
-    <div><h4>Explore</h4><ul><li><a href="#gate" data-cursor>About</a></li><li><a href="#pathways" data-cursor>Selected work</a></li><li><a href="#lessons" data-cursor>Capabilities</a></li><li><a href="#eternity" data-cursor>Contact</a></li></ul></div><div><h4>Projects</h4><ul><li><a href="https://bountix.xyz" target="_blank" rel="noopener noreferrer" data-cursor>Bountix</a></li><li><a href="https://xora.finance" target="_blank" rel="noopener noreferrer" data-cursor>Xora Finance</a></li><li><a href="https://app.0xyas.xyz" target="_blank" rel="noopener noreferrer" data-cursor>Tweet Analyzer</a></li></ul></div><div><h4>Elsewhere</h4><ul><li><a href="https://x.com/calbuldelis69" target="_blank" rel="noopener noreferrer" data-cursor>X / Twitter</a></li><li><a href="https://github.com/salsabila2507" target="_blank" rel="noopener noreferrer" data-cursor>GitHub</a></li><li><a href="https://www.linkedin.com/in/imam-i" target="_blank" rel="noopener noreferrer" data-cursor>LinkedIn</a></li><li><a href="https://t.me/invisiblefoxyasuo" target="_blank" rel="noopener noreferrer" data-cursor>Telegram</a></li></ul></div>
+    <div><h4>Explore</h4><ul><li><a href="#gate" data-cursor>About</a></li><li><a href="#pathways" data-cursor>Selected work</a></li><li><a href="#lessons" data-cursor>Capabilities</a></li><li><a href="#eternity" data-cursor>Contact</a></li></ul></div><div><h4>Projects</h4><ul><li><a href="https://bountix-stellar.vercel.app" target="_blank" rel="noopener noreferrer" data-cursor>Bountix</a></li><li><a href="https://ineed.codes" target="_blank" rel="noopener noreferrer" data-cursor>iNeedCodes</a></li><li><a href="https://ineed.web.id" target="_blank" rel="noopener noreferrer" data-cursor>iNeed</a></li><li><a href="https://app.0xyas.xyz" target="_blank" rel="noopener noreferrer" data-cursor>X Post Analyzer</a></li><li><a href="https://squeekcity.space" target="_blank" rel="noopener noreferrer" data-cursor>Squeek City</a></li><li><a href="https://ineedhood-hunt.vercel.app" target="_blank" rel="noopener noreferrer" data-cursor>ineedhood</a></li></ul></div><div><h4>Elsewhere</h4><ul><li><a href="https://x.com/calbuldelis69" target="_blank" rel="noopener noreferrer" data-cursor>X / Twitter</a></li><li><a href="https://github.com/salsabila2507" target="_blank" rel="noopener noreferrer" data-cursor>GitHub</a></li><li><a href="https://www.linkedin.com/in/imam-i" target="_blank" rel="noopener noreferrer" data-cursor>LinkedIn</a></li><li><a href="https://t.me/invisiblefoxyasuo" target="_blank" rel="noopener noreferrer" data-cursor>Telegram</a></li></ul></div>
   </div>
   <div class="foot-base">
     <span>© 2026 0XYAS — Web3 Growth &amp; Product Builder</span>
@@ -2257,9 +2330,9 @@ const HI = qs('q', COARSE ? 'low' : 'high');
 const LOW = HI === 'low';
 /* Portfolio defaults favour a stable, cool device over demo-benchmark fidelity.
    Every expensive feature remains opt-in through the existing query controls. */
-const WANT_POST    = qs('post', LOW ? '0' : '1') !== '0';
+const WANT_POST    = qs('post', '0') !== '0';  /* default off; ?post=1 for cinematic */
 const WANT_SHADOW  = qs('shadow', '0') !== '0';
-const DPR_CAP      = qn('dpr', LOW ? 1 : 1.35);
+const DPR_CAP      = qn('dpr', LOW ? 1 : 1.15);
 /* the renderer trades resolution for frame rate on its own — the scene is
    fill-bound (five big alpha-blended veils plus a bloom chain), so pixels
    are the only knob worth turning on unknown hardware */
@@ -2889,7 +2962,7 @@ function buildMaple(seed, x, z, scale) {
     map: tx(texLeaf()), color: 0x2b0406, alphaTest: .42, side: THREE.DoubleSide,
     roughness: .86, metalness: 0, emissive: 0x080000, emissiveIntensity: .12
   });
-  const per = LOW ? 5 : 9;
+  const per = LOW ? 4 : 7;
   const inst = new THREE.InstancedMesh(leafGeo, leafMat, tips.length * per);
   const m4 = new THREE.Matrix4(), e = new THREE.Euler(), q2 = new THREE.Quaternion(), sc = new THREE.Vector3();
   let k = 0;
@@ -3068,7 +3141,7 @@ function buildAtmosphere() {
   const hazeTex = tx(texGlow('rgba(160,205,210,.55)', 'rgba(110,165,175,.18)'));
   WORLD.haze = [];
   const rnd = mulberry32(66);
-  for (let i = 0; i < (LOW ? 4 : 6); i++) {
+  for (let i = 0; i < (LOW ? 3 : 5); i++) {
     const s = 12 + rnd() * 15;
     const h = new THREE.Mesh(new THREE.PlaneGeometry(s, s * .55),
       new THREE.MeshBasicMaterial({ map: hazeTex, transparent: true, blending: THREE.AdditiveBlending,
@@ -3080,7 +3153,7 @@ function buildAtmosphere() {
   }
 
   /* embers around the lantern and the disc */
-  const N = LOW ? 220 : 460;
+  const N = LOW ? 160 : 320;
   const pos = new Float32Array(N * 3), seed = new Float32Array(N);
   for (let i = 0; i < N; i++) {
     pos[i * 3] = (rnd() - .5) * 30; pos[i * 3 + 1] = rnd() * 11; pos[i * 3 + 2] = -26 + rnd() * 36;
@@ -3151,7 +3224,7 @@ function buildAtmosphere() {
   rx2.fillStyle = rg2; rx2.fillRect(0, 0, 256, 256);
   const ringTex = tx(ringC);
   WORLD.ripples = [];
-  for (let i = 0; i < (LOW ? 6 : 13); i++) {
+  for (let i = 0; i < (LOW ? 5 : 10); i++) {
     const r = new THREE.Mesh(new THREE.PlaneGeometry(1, 1),
       new THREE.MeshBasicMaterial({ map: ringTex, transparent: true, blending: THREE.AdditiveBlending,
         depthWrite: false, fog: true, opacity: 0 }));
@@ -3178,7 +3251,7 @@ function buildAtmosphere() {
    walked out from under its weather. */
 const LEAF_AHEAD = 11, LEAF_SPREAD = 12, LEAF_R = 30;
 function buildLeafFall() {
-  const N = LOW ? 110 : 260;
+  const N = LOW ? 80 : 180;
   const mat = new THREE.MeshStandardMaterial({
     map: tx(texLeaf()), alphaTest: .42, side: THREE.DoubleSide,
     color: 0x40080a, roughness: .84, metalness: 0,
@@ -3267,7 +3340,7 @@ function buildWisps() {
      no rotated lookup. They are also small — a few pixels of core inside a
      faint halo — which is what lets the count go up without the additive fill
      that a screenful of big sprites costs. */
-  const N = LOW ? 90 : 190;
+  const N = LOW ? 60 : 140;
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 3), 3));
   g.setAttribute('aA', new THREE.BufferAttribute(new Float32Array(N), 1));
@@ -4745,10 +4818,19 @@ const JOBS = [
   }]
 ];
 
+function unlockContent() {
+  /* Content-first: readable without waiting for the full GL job queue. */
+  document.body.classList.remove('is-locked');
+  if (preEl) preEl.classList.add('done');
+  $$('[data-rv], .mask-line').forEach(e => e.classList.add('rv-in'));
+}
+
 function boot() {
   makeGrain();
   wireReveals(); wireForegroundStages(); wireNav(); wireHeroExit(); wireFocus(); wireCursor();
   document.body.classList.add('is-locked');
+  /* Prefer early unlock on lite paths so About/Work are readable before JOBS finish. */
+  if (REDUCE || LOW || COARSE) setTimeout(unlockContent, REDUCE ? 200 : 600);
   let i = 0;
   const step = () => {
     const j = JOBS[i];
