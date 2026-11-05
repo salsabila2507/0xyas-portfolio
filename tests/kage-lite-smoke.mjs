@@ -104,6 +104,18 @@ ok('early unlock helper for lite path', /earlyUnlock|unlockLite|CONTENT_FIRST|un
 ok('index meta mentions products factually', /iNeedCodes|Bountix|Web3/i.test(index));
 ok('README is not claiming React Vite as production stack', !/Built with React, Vite/i.test(fs.readFileSync(path.join(root, 'README.md'), 'utf8')));
 
+
+ok('default q is low (lite desktop)', /const HI\s*=\s*qs\(\s*['"]q['"]\s*,\s*['"]low['"]\s*\)/.test(kage));
+ok('nogl short-circuits boot via fallback', /qs\(\s*['"]nogl['"].*\)\s*!==\s*['"]0['"]/.test(kage) && /if\s*\([^)]*nogl[^)]*\)[\s\S]{0,120}?fallback\s*\(/.test(kage));
+ok('noscript hides preloader / reveals content', /<noscript>[\s\S]*?#pre[\s\S]*?display\s*:\s*none/i.test(kage));
+ok('fg-sky sits under .page (decorative behind text)', /#fg-sky\s*\{[^}]*z-index:\s*([0-9]+)/.test(kage) && (m => m && +m[1] < 10)(kage.match(/#fg-sky\s*\{[^}]*z-index:\s*([0-9]+)/)));
+ok('section content above in-section .fg', /\.sec\s*>\s*\*:not\(\.fg\)[^}]*z-index:\s*([4-9]|[1-9][0-9])/.test(kage));
+ok('static cards use cohesive panel class', /card-panel/.test(kage) && (kage.match(/card--static/g) || []).length >= 6);
+ok('static panels are not 4\/5 empty frames', !/\.card--static[^{]*\{[^}]*aspect-ratio:\s*4\s*\/\s*5/.test(kage) && /\.card-panel/.test(kage));
+ok('card descriptions use stronger contrast token', /\.card-panel-desc|\.card-desc/.test(kage) && !/\.card-meta\{[^}]*color:var\(--muted\)/.test(kage.replace(/\s+/g,' ')));
+ok('cur-head body wraps with min-width 0', /\.cur-head[^{]*\{[^}]*minmax\(0/.test(kage) && /\.cur-head\s+\.body-lg|\.cur-head\s*>\s*\*/.test(kage) && /overflow-wrap|word-break|min-width:\s*0/.test(kage));
+ok('hero-cue contrast raised above muted', /\.hero-cue\{[^}]*color:\s*(?!var\(--muted\))[^;]+/.test(kage.replace(/\n/g,' ')));
+
 // Syntax: balanced script tag + no obvious unclosed
 const scripts = kage.match(/<script\b/gi) || [];
 const scriptEnds = kage.match(/<\/script>/gi) || [];
