@@ -174,7 +174,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .hero-spacer{ flex:1 1 auto; min-height:clamp(140px,26vh,300px); }
 .hero-foot{ padding-bottom:clamp(22px,4.2vh,42px); position:relative; z-index:2; }
 .hero-cue{ display:flex; align-items:center; justify-content:flex-end; gap:12px; margin-bottom:14px;
-  font-size:9px; letter-spacing:.3em; text-transform:uppercase; color:var(--muted); }
+  font-size:9px; letter-spacing:.3em; text-transform:uppercase; color:#c2cdc5; text-shadow:0 1px 10px rgba(3,6,8,.95); }
 .hero-cue .track{ width:54px; height:1px; background:var(--line); position:relative; overflow:hidden; }
 .hero-cue .track i{ position:absolute; inset:0; background:var(--bone); transform-origin:left;
   animation:cue 2.8s var(--ease-io) infinite; }
@@ -188,7 +188,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .chip b{ display:block; font-size:10px; font-weight:500; letter-spacing:.2em; text-transform:uppercase;
   color:var(--bone-dim); margin-bottom:6px; transition:color .4s;
   text-shadow:0 1px 16px rgba(3,6,8,.9); }
-.chip p{ margin:0; font-size:11px; line-height:1.5; color:#7d8781; max-width:22ch;
+.chip p{ margin:0; font-size:11px; line-height:1.5; color:#b4bfb7; max-width:22ch; text-shadow:0 1px 10px rgba(3,6,8,.9);
   transition:color .4s; }
 .chip:hover .num{ color:var(--ember); transform:translate3d(0,-2px,0); }
 .chip:hover b{ color:var(--bone); }
@@ -269,7 +269,45 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .gate-stats div span{ font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
 
 /* — chapter II: pathways cards */
-.cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.4vw,22px); align-items:start; }
+.cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:clamp(14px,1.6vw,22px); align-items:stretch; }
+.card-anchor{ display:block; color:inherit; text-decoration:none; height:100%; }
+.card:nth-child(n+4){ transform:none; }
+/* Cohesive static project panel — title + description live together (not under a tall empty 4:5 hole) */
+.card-panel{
+  position:relative; display:flex; flex-direction:column; min-height:100%;
+  outline:1px solid var(--line-soft); outline-offset:-1px;
+  background:
+    linear-gradient(165deg, rgba(16,24,28,.97), rgba(8,10,12,.98) 55%, rgba(22,10,10,.94)),
+    radial-gradient(120% 80% at 100% 0%, rgba(224,35,28,.14), transparent 55%);
+  transition:outline-color .5s var(--ease);
+}
+.card--static:hover .card-panel{ outline-color:rgba(223,231,224,.30); }
+.card-panel-art{
+  position:relative; height:88px; flex:0 0 auto; overflow:hidden;
+  border-bottom:1px solid var(--line-soft);
+  background:
+    linear-gradient(180deg, rgba(3,6,9,.15), rgba(3,6,9,.55)),
+    radial-gradient(closest-side at 70% 40%, rgba(224,35,28,.35), transparent 70%);
+}
+.card-panel-mono{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-family:'Wordmark','Onest',sans-serif; font-weight:600;
+  font-size:42px; letter-spacing:.08em; line-height:1;
+  color:rgba(223,231,224,.20); pointer-events:none; user-select:none;
+}
+.card-panel-mark{
+  position:absolute; left:14px; top:14px; width:28px; height:28px; opacity:.85;
+}
+.card-panel-body{ padding:16px 16px 18px; display:flex; flex-direction:column; gap:10px; flex:1 1 auto; }
+.card-panel-top{ display:flex; justify-content:space-between; align-items:baseline; gap:10px;
+  font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#9aa59d; }
+.card-panel-top .jp{ font-family:'NotoJP',sans-serif; letter-spacing:.28em; color:#a8b3ab; }
+.card-panel-title{ margin:0; font-size:clamp(15px,1.2vw,18px); font-weight:500; letter-spacing:.04em;
+  text-transform:uppercase; color:var(--bone); }
+.card-panel-desc{ margin:0; font-size:12px; line-height:1.55; letter-spacing:.02em;
+  color:#c2cdc5; text-shadow:0 1px 12px rgba(3,6,8,.85); }
+.card--static .card-ar{ position:absolute; top:14px; right:14px; z-index:2; opacity:.55; transform:none; }
+.card--static:hover .card-ar{ opacity:1; }
 .card{ position:relative; cursor:pointer; }
 .card:nth-child(1){ transform:translateY(0); }
 .card:nth-child(2){ transform:translateY(clamp(26px,5vw,74px)); }
@@ -386,11 +424,14 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
   opacity:0; transform:translate3d(-4px,4px,0); transition:.5s var(--ease-out); }
 .card:hover .card-ar{ opacity:1; transform:none; }
 .card-meta{ display:flex; justify-content:space-between; margin-top:12px;
-  font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#b4bfb7; }
+.card-desc{ display:block; margin-top:6px; font-size:11px; line-height:1.45; letter-spacing:.04em; text-transform:none; color:#c2cdc5; max-width:28ch; }
 
 /* — chapter III: curriculum */
 .cur-head{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.72fr); gap:clamp(28px,5vw,90px); align-items:end; margin-bottom:clamp(34px,6vh,72px); }
-.cur-head h2{ max-width:13ch; }
+.cur-head > *{ min-width:0; }
+.cur-head h2{ max-width:min(13ch,100%); overflow-wrap:break-word; }
+.cur-head .body-lg{ max-width:36rem; overflow-wrap:anywhere; color:#c2cdc5; }
 .cur{ border-top:1px solid var(--line-soft); }
 .les{
   position:relative; display:grid; align-items:center;
@@ -671,7 +712,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
    the reading protected by the layer order rather than a translucent
    foreground treatment. */
 .fg{
-  position:absolute; inset:0; z-index:3;
+  position:absolute; inset:0; z-index:1;
   overflow:visible; pointer-events:none;
 }
 /* Nothing inside a section may widen the document. The foreground cut-outs and
@@ -686,9 +727,13 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
    its own, since every stage it holds is position:fixed to the viewport */
 #fg-sky{
   position:fixed; left:0; top:0; width:0; height:0;
-  z-index:52; pointer-events:none;
+  /* Sit between the WebGL canvas (0) and .page (10) so cut-outs decorate the
+     scene without covering readable copy, headings, or footer type. */
+  z-index:5; pointer-events:none;
 }
-.sec > *:not(.fg), .foot > *:not(.fg){ position:relative; z-index:2; }
+.sec > *:not(.fg), .foot > *:not(.fg){ position:relative; z-index:4; }
+.fg.fg-active .fg-el > img,
+.fg.fg-retiring .fg-el > img{ opacity:.55; filter:saturate(.8) brightness(.78); }
 .fg-el{ position:absolute; display:block; opacity:0; }
 .fg-el > img{
   width:100%; height:auto;   /* the width/height attrs hold the box before the lazy image lands */
@@ -898,6 +943,14 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
 </head>
 <body data-layout-hero="b" data-layout-story="b" data-layout-gallery="b"
       data-layout-curriculum="b" data-layout-closing="b" data-layout-footer="b">
+<noscript>
+  <style>
+    #pre{ display:none !important; }
+    body.is-locked{ overflow:auto !important; height:auto !important; }
+    [data-rv], .mask-line{ opacity:1 !important; transform:none !important; filter:none !important; }
+    .fg{ display:none !important; }
+  </style>
+</noscript>
 
 <canvas id="gl" aria-hidden="true"></canvas>
 <div id="vignette"></div>
@@ -960,7 +1013,7 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
     <div class="hero-cue" data-rv="fade"><span>Scroll to explore</span><span class="track"><i></i></span></div>
     <div class="chapters" id="chips">
       <div class="chip" data-chip="0" data-rv="up" data-cursor><span class="num">01</span>
-        <span class="tx"><b>Selected Work</b><p>Products and campaigns built with real utility.</p></span></div>
+        <span class="tx"><b>Selected Work</b><p>Products, tools, and shipped playtests.</p></span></div>
       <div class="chip" data-chip="1" data-rv="up" data-cursor><span class="num">02</span>
         <span class="tx"><b>Web3 Growth</b><p>Strategy, narrative, content, and community systems.</p></span></div>
       <div class="chip" data-chip="2" data-rv="up" data-cursor><span class="num">03</span>
@@ -1007,7 +1060,7 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
     <h2 class="display h-sec" data-rv="up">Builder brain. Growth instinct. One clear direction.</h2>
     <div class="gate-copy">
       <p class="lead" data-rv="up">I combine technical execution, content strategy, and community-led growth to help Web3 products become easier to understand, use, and remember.</p>
-      <p class="body" data-rv="up">Currently Marketing Manager at Xora Finance and founder of Bountix, deploying tools, running growth campaigns, and building useful systems from Jakarta.</p>
+      <p class="body" data-rv="up">Independent builder in Jakarta. Founder of Bountix and Marketing Manager at Xora Finance. I ship Web3 and AI products, Discord and Telegram automation, and community systems people can actually use.</p>
       <a class="arrowlink" href="#pathways" data-rv="fade" data-cursor>
         <span>Explore selected work</span>
         <span class="ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
@@ -1015,9 +1068,9 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
     </div>
   </div>
   <div class="gate-stats" data-rv="up">
-    <div><b>57K+</b><span>Community peak</span></div>
-    <div><b>2M+</b><span>Total impressions</span></div>
-    <div><b>10</b><span>Projects scaled</span></div>
+    <div><b>iNeedCodes</b><span>Open-source CLI on npm</span></div>
+    <div><b>iNeed</b><span>Free-tier AI access</span></div>
+    <div><b>Bountix</b><span>Marketplace on Stellar</span></div>
     <div><b>GMT+7</b><span>Jakarta</span></div>
   </div>
 </section>
@@ -1042,30 +1095,121 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
   <div class="sec-head" data-rv="fade">
     <span class="k"><b>02</b> — Selected Work</span><span class="rule"></span><span class="k jp">庭園</span>
   </div>
+  <p class="body" data-rv="up" style="margin:0 0 22px;max-width:42rem">Products, tools, and shipped playtests — linked to live builds where available.</p>
   <div class="cards" id="cards">
     <article class="card" data-rv="up" data-view="0" data-cursor>
+      <a class="card-anchor" href="https://bountix-stellar.vercel.app" target="_blank" rel="noopener noreferrer" data-cursor>
       <div class="card-fr" data-frame>
                 <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
         <i class="glow" style="--gx:80.2%; --gy:23.9%; --gr:22%; --gt:6.1s; --gt2:9.7s; --gc1:rgba(255,142,108,.50); --gc2:rgba(212,56,38,.24)"></i>
-        <div class="card-lab"><b>Bountix</b><span class="jp">創業</span></div>
+        <div class="card-lab"><div><b>Bountix</b><span class="card-desc">Task marketplace with USDC escrow on Stellar</span></div><span class="jp">創業</span></div>
       </div>
-      <div class="card-meta"><span>Web3 bounty platform</span><span>01 / 03</span></div>
+      <div class="card-meta"><span></span><span>01 / 09</span></div>
+      </a>
     </article>
     <article class="card" data-rv="up" data-view="1" data-cursor>
+      <a class="card-anchor" href="https://xora.finance" target="_blank" rel="noopener noreferrer" data-cursor>
       <div class="card-fr" data-frame>
                 <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow glow--flame" style="--gx:70.5%; --gy:47.2%; --gr:14%; --gt:3.7s; --gt2:5.3s; --gc1:rgba(255,198,124,.62); --gc2:rgba(226,118,40,.30)"></i>
-        <div class="card-lab"><b>Xora Finance</b><span class="jp">成長</span></div>
+        <i class="glow--flame" style="--gx:70.5%; --gy:47.2%; --gr:14%; --gt:3.7s; --gt2:5.3s; --gc1:rgba(255,198,124,.62); --gc2:rgba(226,118,40,.30)"></i>
+        <div class="card-lab"><div><b>Xora Finance</b><span class="card-desc">Marketing Manager — growth for XRP neobank</span></div><span class="jp">成長</span></div>
       </div>
-      <div class="card-meta"><span>Marketing &amp; growth</span><span>02 / 03</span></div>
+      <div class="card-meta"><span></span><span>02 / 09</span></div>
+      </a>
     </article>
     <article class="card" data-rv="up" data-view="2" data-cursor>
+      <a class="card-anchor" href="https://app.0xyas.xyz" target="_blank" rel="noopener noreferrer" data-cursor>
       <div class="card-fr" data-frame>
                 <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
         <i class="glow" style="--gx:48.0%; --gy:16.8%; --gr:20%; --gt:7.3s; --gt2:11.2s; --gc1:rgba(255,138,104,.52); --gc2:rgba(208,54,36,.24)"></i>
-        <div class="card-lab"><b>Tweet Analyzer</b><span class="jp">構築</span></div>
+        <div class="card-lab"><div><b>X Post Analyzer</b><span class="card-desc">Engagement authenticity tooling for X posts</span></div><span class="jp">構築</span></div>
       </div>
-      <div class="card-meta"><span>AI-powered product</span><span>03 / 03</span></div>
+      <div class="card-meta"><span></span><span>03 / 09</span></div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://ineed.codes" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-panel">
+        <div class="card-panel-art" aria-hidden="true"><svg class="card-panel-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="25" r="8.6" fill="#e0231c" fill-opacity=".9"/><path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/><path d="M14 35.5h16" stroke="#dfe7e0" stroke-width="1.2" stroke-opacity=".6"/></svg><span class="card-panel-mono">IC</span>
+          <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        </div>
+        <div class="card-panel-body">
+          <div class="card-panel-top"><span class="jp">制作</span><span>04 / 09</span></div>
+          <h3 class="card-panel-title">iNeedCodes</h3>
+          <p class="card-panel-desc">Autonomous CLI AI agent — MIT, on npm as ineedcodes</p>
+        </div>
+      </div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://ineed.web.id" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-panel">
+        <div class="card-panel-art" aria-hidden="true"><svg class="card-panel-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="25" r="8.6" fill="#e0231c" fill-opacity=".9"/><path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/><path d="M14 35.5h16" stroke="#dfe7e0" stroke-width="1.2" stroke-opacity=".6"/></svg><span class="card-panel-mono">iN</span>
+          <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        </div>
+        <div class="card-panel-body">
+          <div class="card-panel-top"><span class="jp">学習</span><span>05 / 09</span></div>
+          <h3 class="card-panel-title">iNeed</h3>
+          <p class="card-panel-desc">Free-tier AI learning hub and OpenAI-compatible API</p>
+        </div>
+      </div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://squeekcity.space" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-panel">
+        <div class="card-panel-art" aria-hidden="true"><svg class="card-panel-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="25" r="8.6" fill="#e0231c" fill-opacity=".9"/><path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/><path d="M14 35.5h16" stroke="#dfe7e0" stroke-width="1.2" stroke-opacity=".6"/></svg><span class="card-panel-mono">SC</span>
+          <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        </div>
+        <div class="card-panel-body">
+          <div class="card-panel-top"><span class="jp">協働</span><span>06 / 09</span></div>
+          <h3 class="card-panel-title">Squeek City</h3>
+          <p class="card-panel-desc">Grand Theft Hamster — built by 0xyas &amp; Jex on Squeekchain</p>
+        </div>
+      </div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://salsabila2507.github.io/squeek-heist/" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-panel">
+        <div class="card-panel-art" aria-hidden="true"><svg class="card-panel-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="25" r="8.6" fill="#e0231c" fill-opacity=".9"/><path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/><path d="M14 35.5h16" stroke="#dfe7e0" stroke-width="1.2" stroke-opacity=".6"/></svg><span class="card-panel-mono">SH</span>
+          <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        </div>
+        <div class="card-panel-body">
+          <div class="card-panel-top"><span class="jp">制作</span><span>07 / 09</span></div>
+          <h3 class="card-panel-title">Squeek Heist</h3>
+          <p class="card-panel-desc">Pixel heist driven by Squeektoshi's real wheel data</p>
+        </div>
+      </div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://ineedhood-hunt.vercel.app" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-panel">
+        <div class="card-panel-art" aria-hidden="true"><svg class="card-panel-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="25" r="8.6" fill="#e0231c" fill-opacity=".9"/><path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/><path d="M14 35.5h16" stroke="#dfe7e0" stroke-width="1.2" stroke-opacity=".6"/></svg><span class="card-panel-mono">IH</span>
+          <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        </div>
+        <div class="card-panel-body">
+          <div class="card-panel-top"><span class="jp">試験</span><span>08 / 09</span></div>
+          <h3 class="card-panel-title">ineedhood Hunt</h3>
+          <p class="card-panel-desc">Browser hood playtest with daily hunts and fights</p>
+        </div>
+      </div>
+      </a>
+    </article>
+    <article class="card card--static" data-rv="up" data-cursor>
+      <a class="card-anchor" href="https://github.com/salsabila2507/bitget-llm-bot" target="_blank" rel="noopener noreferrer" data-cursor>
+      <div class="card-panel">
+        <div class="card-panel-art" aria-hidden="true"><svg class="card-panel-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="25" r="8.6" fill="#e0231c" fill-opacity=".9"/><path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/><path d="M14 35.5h16" stroke="#dfe7e0" stroke-width="1.2" stroke-opacity=".6"/></svg><span class="card-panel-mono">AU</span>
+          <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
+        </div>
+        <div class="card-panel-body">
+          <div class="card-panel-top"><span class="jp">自動化</span><span>09 / 09</span></div>
+          <h3 class="card-panel-title">Automation</h3>
+          <p class="card-panel-desc">Discord &amp; Telegram bots, trading and mint tooling</p>
+        </div>
+      </div>
+      </a>
     </article>
   </div>
 </section>
@@ -1107,19 +1251,19 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
     <div class="les" data-les="2" data-cursor>
       <span class="k">03</span>
       <h3>Automation Systems<em class="jp">焼杉</em></h3>
-      <p>Bots, APIs, AI workflows, Linux servers, and repeatable operations.</p>
+      <p>Discord and Telegram automation bots, APIs, AI workflows, Linux servers, and repeatable operations.</p>
       <span class="t">Technical</span><i class="bar"></i>
     </div>
     <div class="les" data-les="3" data-cursor>
       <span class="k">04</span>
       <h3>Community Growth<em class="jp">灯籠</em></h3>
-      <p>Onboarding, activation, content loops, and sustainable engagement.</p>
+      <p>Community management, moderation, onboarding, activation, and content loops that keep people around.</p>
       <span class="t">Community</span><i class="bar"></i>
     </div>
     <div class="les" data-les="4" data-cursor>
       <span class="k">05</span>
       <h3>Web3 Research<em class="jp">朱月</em></h3>
-      <p>Turning emerging ecosystems and complex technology into clear opportunities.</p>
+      <p>Ecosystem and security research — turning complex systems into clear next steps.</p>
       <span class="t">Research</span><i class="bar"></i>
     </div>
   </div>
@@ -1173,7 +1317,7 @@ body[data-layout-story="b"] .gate-copy{grid-column:3}
       </svg>
       <p>Web3 growth, product building, automation, and community systems — developed from Jakarta for teams building what comes next.</p>
     </div>
-    <div><h4>Explore</h4><ul><li><a href="#gate" data-cursor>About</a></li><li><a href="#pathways" data-cursor>Selected work</a></li><li><a href="#lessons" data-cursor>Capabilities</a></li><li><a href="#eternity" data-cursor>Contact</a></li></ul></div><div><h4>Projects</h4><ul><li><a href="https://bountix.xyz" target="_blank" rel="noopener noreferrer" data-cursor>Bountix</a></li><li><a href="https://xora.finance" target="_blank" rel="noopener noreferrer" data-cursor>Xora Finance</a></li><li><a href="https://app.0xyas.xyz" target="_blank" rel="noopener noreferrer" data-cursor>Tweet Analyzer</a></li></ul></div><div><h4>Elsewhere</h4><ul><li><a href="https://x.com/calbuldelis69" target="_blank" rel="noopener noreferrer" data-cursor>X / Twitter</a></li><li><a href="https://github.com/salsabila2507" target="_blank" rel="noopener noreferrer" data-cursor>GitHub</a></li><li><a href="https://www.linkedin.com/in/imam-i" target="_blank" rel="noopener noreferrer" data-cursor>LinkedIn</a></li><li><a href="https://t.me/invisiblefoxyasuo" target="_blank" rel="noopener noreferrer" data-cursor>Telegram</a></li></ul></div>
+    <div><h4>Explore</h4><ul><li><a href="#gate" data-cursor>About</a></li><li><a href="#pathways" data-cursor>Selected work</a></li><li><a href="#lessons" data-cursor>Capabilities</a></li><li><a href="#eternity" data-cursor>Contact</a></li></ul></div><div><h4>Projects</h4><ul><li><a href="https://bountix-stellar.vercel.app" target="_blank" rel="noopener noreferrer" data-cursor>Bountix</a></li><li><a href="https://ineed.codes" target="_blank" rel="noopener noreferrer" data-cursor>iNeedCodes</a></li><li><a href="https://ineed.web.id" target="_blank" rel="noopener noreferrer" data-cursor>iNeed</a></li><li><a href="https://app.0xyas.xyz" target="_blank" rel="noopener noreferrer" data-cursor>X Post Analyzer</a></li><li><a href="https://squeekcity.space" target="_blank" rel="noopener noreferrer" data-cursor>Squeek City</a></li><li><a href="https://ineedhood-hunt.vercel.app" target="_blank" rel="noopener noreferrer" data-cursor>ineedhood</a></li></ul></div><div><h4>Elsewhere</h4><ul><li><a href="https://x.com/calbuldelis69" target="_blank" rel="noopener noreferrer" data-cursor>X / Twitter</a></li><li><a href="https://github.com/salsabila2507" target="_blank" rel="noopener noreferrer" data-cursor>GitHub</a></li><li><a href="https://www.linkedin.com/in/imam-i" target="_blank" rel="noopener noreferrer" data-cursor>LinkedIn</a></li><li><a href="https://t.me/invisiblefoxyasuo" target="_blank" rel="noopener noreferrer" data-cursor>Telegram</a></li></ul></div>
   </div>
   <div class="foot-base">
     <span>© 2026 0XYAS — Web3 Growth &amp; Product Builder</span>
@@ -2253,13 +2397,13 @@ const canvas = document.getElementById('gl');
 const vpW = () => document.documentElement.clientWidth  || innerWidth;
 const vpH = () => document.documentElement.clientHeight || innerHeight;
 let renderer, scene, camera, maxAniso = 1;
-const HI = qs('q', COARSE ? 'low' : 'high');
+const HI = qs('q', 'low');  /* portfolio default: lite; ?q=high for cinematic density */
 const LOW = HI === 'low';
 /* Portfolio defaults favour a stable, cool device over demo-benchmark fidelity.
    Every expensive feature remains opt-in through the existing query controls. */
-const WANT_POST    = qs('post', LOW ? '0' : '1') !== '0';
+const WANT_POST    = qs('post', '0') !== '0';  /* default off; ?post=1 for cinematic */
 const WANT_SHADOW  = qs('shadow', '0') !== '0';
-const DPR_CAP      = qn('dpr', LOW ? 1 : 1.35);
+const DPR_CAP      = qn('dpr', LOW ? 1 : 1.15);
 /* the renderer trades resolution for frame rate on its own — the scene is
    fill-bound (five big alpha-blended veils plus a bloom chain), so pixels
    are the only knob worth turning on unknown hardware */
@@ -2889,7 +3033,7 @@ function buildMaple(seed, x, z, scale) {
     map: tx(texLeaf()), color: 0x2b0406, alphaTest: .42, side: THREE.DoubleSide,
     roughness: .86, metalness: 0, emissive: 0x080000, emissiveIntensity: .12
   });
-  const per = LOW ? 5 : 9;
+  const per = LOW ? 4 : 7;
   const inst = new THREE.InstancedMesh(leafGeo, leafMat, tips.length * per);
   const m4 = new THREE.Matrix4(), e = new THREE.Euler(), q2 = new THREE.Quaternion(), sc = new THREE.Vector3();
   let k = 0;
@@ -3068,7 +3212,7 @@ function buildAtmosphere() {
   const hazeTex = tx(texGlow('rgba(160,205,210,.55)', 'rgba(110,165,175,.18)'));
   WORLD.haze = [];
   const rnd = mulberry32(66);
-  for (let i = 0; i < (LOW ? 4 : 6); i++) {
+  for (let i = 0; i < (LOW ? 3 : 5); i++) {
     const s = 12 + rnd() * 15;
     const h = new THREE.Mesh(new THREE.PlaneGeometry(s, s * .55),
       new THREE.MeshBasicMaterial({ map: hazeTex, transparent: true, blending: THREE.AdditiveBlending,
@@ -3080,7 +3224,7 @@ function buildAtmosphere() {
   }
 
   /* embers around the lantern and the disc */
-  const N = LOW ? 220 : 460;
+  const N = LOW ? 160 : 320;
   const pos = new Float32Array(N * 3), seed = new Float32Array(N);
   for (let i = 0; i < N; i++) {
     pos[i * 3] = (rnd() - .5) * 30; pos[i * 3 + 1] = rnd() * 11; pos[i * 3 + 2] = -26 + rnd() * 36;
@@ -3151,7 +3295,7 @@ function buildAtmosphere() {
   rx2.fillStyle = rg2; rx2.fillRect(0, 0, 256, 256);
   const ringTex = tx(ringC);
   WORLD.ripples = [];
-  for (let i = 0; i < (LOW ? 6 : 13); i++) {
+  for (let i = 0; i < (LOW ? 5 : 10); i++) {
     const r = new THREE.Mesh(new THREE.PlaneGeometry(1, 1),
       new THREE.MeshBasicMaterial({ map: ringTex, transparent: true, blending: THREE.AdditiveBlending,
         depthWrite: false, fog: true, opacity: 0 }));
@@ -3178,7 +3322,7 @@ function buildAtmosphere() {
    walked out from under its weather. */
 const LEAF_AHEAD = 11, LEAF_SPREAD = 12, LEAF_R = 30;
 function buildLeafFall() {
-  const N = LOW ? 110 : 260;
+  const N = LOW ? 80 : 180;
   const mat = new THREE.MeshStandardMaterial({
     map: tx(texLeaf()), alphaTest: .42, side: THREE.DoubleSide,
     color: 0x40080a, roughness: .84, metalness: 0,
@@ -3267,7 +3411,7 @@ function buildWisps() {
      no rotated lookup. They are also small — a few pixels of core inside a
      faint halo — which is what lets the count go up without the additive fill
      that a screenful of big sprites costs. */
-  const N = LOW ? 90 : 190;
+  const N = LOW ? 60 : 140;
   const g = new THREE.BufferGeometry();
   g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N * 3), 3));
   g.setAttribute('aA', new THREE.BufferAttribute(new Float32Array(N), 1));
@@ -4745,10 +4889,21 @@ const JOBS = [
   }]
 ];
 
+function unlockContent() {
+  /* Content-first: readable without waiting for the full GL job queue. */
+  document.body.classList.remove('is-locked');
+  if (preEl) preEl.classList.add('done');
+  $$('[data-rv], .mask-line').forEach(e => e.classList.add('rv-in'));
+}
+
 function boot() {
   makeGrain();
   wireReveals(); wireForegroundStages(); wireNav(); wireHeroExit(); wireFocus(); wireCursor();
+  /* Deterministic no-GL: skip the sanctuary jobs entirely so ?nogl=1 never leaves a stale canvas. */
+  if (qs('nogl', '0') !== '0') { fallback(new Error('webgl disabled')); return; }
   document.body.classList.add('is-locked');
+  /* Prefer early unlock on lite paths so About/Work are readable before JOBS finish. */
+  if (REDUCE || LOW || COARSE) setTimeout(unlockContent, REDUCE ? 200 : 600);
   let i = 0;
   const step = () => {
     const j = JOBS[i];
@@ -4774,7 +4929,10 @@ function fallback(err) {
   document.documentElement.classList.add('no-webgl');
   document.body.classList.add('no-webgl');
   document.body.classList.remove('is-locked');
-  preEl.classList.add('done');
+  if (preEl) preEl.classList.add('done');
+  const gl = document.getElementById('gl');
+  if (gl) { gl.style.display = 'none'; }
+  $$('.fg').forEach(el => { el.style.display = 'none'; });
   $$('[data-rv], .mask-line').forEach(e => e.classList.add('rv-in'));
   window.__kage = window.__secret = { fallback: true, error: String(err && err.message || err) };
 }
